@@ -69,5 +69,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+### links
 
 https://react-bootstrap.github.io/getting-started/introduction
+
+### vscode extensions
+
+ES7 React/Redux/GraphQL/React-Native snippets
+
+### snippets
+
+rfce => react function component with export
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
