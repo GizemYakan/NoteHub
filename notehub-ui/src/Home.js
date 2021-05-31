@@ -1,9 +1,11 @@
+import AppContext from './AppContext'
 import './Home.css';
-import React from 'react';
+import React,{useContext} from 'react';
 import {Link} from 'react-router-dom';
 import { Col, Container, Row, Navbar, Nav, NavDropdown, ListGroup, Form, Button } from 'react-bootstrap';
 
 function Home() {
+    const context = useContext(AppContext);
     return (
         <div className="home-wrapper">
             <Navbar bg="light" expand="lg">
@@ -15,7 +17,7 @@ function Home() {
                     </Nav>
                     <Nav>
                         <NavDropdown alignRight title="My Account" id="basic-nav-dropdown">
-                            <Link className="dropdown-item" to="/login">Logout (admin@example.com)</Link>
+                            <Link className="dropdown-item" to="/logout">Logout (admin@example.com)</Link>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

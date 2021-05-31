@@ -1,14 +1,24 @@
 import './Login.css';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Alert from 'react-bootstrap/Alert';
-import { Link } from 'react-router-dom';
+import {useEffect} from 'react';
+import {Form,Button,Alert,Card} from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
+    var query = new URLSearchParams(useLocation().search);
+    var qlogout = query.get("logout");
+    useEffect(() => {
+        // parametre olarak verilen metot login bileşeni sayfada render/update olunca çalışır
+        if (qlogout == "success") {
+            toast("You have logged out succesfully!");
+        }
+    });
+
     return (
         <Card className="card-login">
             <Card.Body className="p-sm-4">
+                <ToastContainer />
                 <h1 className="text-center">Login</h1>
                 <Alert variant="danger">
                     Invalid e-mail or password.

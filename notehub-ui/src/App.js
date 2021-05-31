@@ -1,4 +1,5 @@
-import React from "react";
+import React ,{useState} from "react";
+import AppContext from './AppContext'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,7 +14,10 @@ import Login from './Login'
 import Logout from './Logout'
 
 function App() {
+  let isLoggedIn = true;
+  const [token,setToken] = useState("qwerty");
   return (
+    <AppContext.Provider value={{token:"abc"}}>
     <Router>
       <Switch>
         <Route path="/register">
@@ -26,10 +30,11 @@ function App() {
           <Logout />
         </Route>
         <Route path="/">
-          <Home />
+          {isLoggedIn ? <Home /> : <div>Önce giriş yap</div>}
         </Route>
       </Switch>
     </Router>
+    </AppContext.Provider>
   );
 }
 
