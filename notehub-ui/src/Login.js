@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 
 function Login() {
     return (
@@ -10,15 +11,14 @@ function Login() {
             <Card.Body className="p-sm-4">
                 <h1 className="text-center">Login</h1>
                 <Alert variant="danger">
-                    E-mail already exists.
+                    Invalid e-mail or password.
                     </Alert>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
                         <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                  </Form.Text>
+                        </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
@@ -34,6 +34,10 @@ function Login() {
                         Submit
                 </Button>
                 </Form>
+
+                <div className="text-center mt-3">
+                    <Link to="/register" className="text-center">Register as a new user.</Link>
+                </div>
             </Card.Body>
         </Card>
     )
