@@ -1,11 +1,12 @@
-import AppContext from './AppContext'
+import AppContext from './AppContext';
 import './Home.css';
-import React,{useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Container, Row, Navbar, Nav, NavDropdown, ListGroup, Form, Button } from 'react-bootstrap';
 
 function Home() {
     const context = useContext(AppContext);
+
     return (
         <div className="home-wrapper">
             <Navbar bg="light" expand="lg">
@@ -25,7 +26,7 @@ function Home() {
             <Container fluid className="flex-fill">
                 <Row className="h-100">
                     <Col sm={4} md={3}>
-                        <h3 className="mt-4">My Notes</h3>
+                        <h3 className="mt-4">My Notes - { context.token }</h3>
                         <ListGroup defaultActiveKey="#link1">
                             <ListGroup.Item action href="#link1">
                                 Link 1
@@ -49,6 +50,9 @@ function Home() {
                             <div>
                                 <Button variant="primary">Kaydet</Button>
                                 <Button variant="danger" className="ml-2">Sil</Button>
+                                <Button variant="danger" className="ml-2" onClick={() => context.setToken("3754")}>
+                                    tokenı 3754 yap
+                                </Button>
                             </div>
                         </Form>
                     </Col>
