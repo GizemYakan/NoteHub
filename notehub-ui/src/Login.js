@@ -20,25 +20,27 @@ function Login() {
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(true);
 
-    const handleSubmit = function(e) {
+    const handleSubmit = function (e) {
         e.preventDefault();
         axios.post("https://localhost:5001/api/Account/Login", {
             username: email,
             password: password
         })
-        .then(function(response) {
-            console.log(response);
-        })
-        .catch(function(error) {
-            const messages = [];
-            for (const key in error.response.data) {
-                messages.push(...data[key]);
-            }
-        });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                if (error.response.data.errors) {
+                    const messages = [];
+                    for (const key in error.response.data.errors) {
+                        messages.push(...error.response.data.errors[key]);
+                    }
+                }
+            });
 
-        
+
     };
-    
+
     return (
         <Card className="card-login">
             <Card.Body className="p-sm-4">
@@ -50,18 +52,18 @@ function Login() {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" value={email} 
+                        <Form.Control type="email" placeholder="Enter email" value={email}
                             onInput={(e) => setEmail(e.target.value)} required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" value={password} 
+                        <Form.Control type="password" placeholder="Password" value={password}
                             onInput={(e) => setPassword(e.target.value)} required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Remember me" checked={rememberMe} 
+                        <Form.Check type="checkbox" label="Remember me" checked={rememberMe}
                             onChange={(e) => setRememberMe(e.target.checked)} />
                     </Form.Group>
 
@@ -69,7 +71,7 @@ function Login() {
                         Submit
                     </Button>
                 </Form>
-                
+
                 <div className="text-center mt-3">
                     <Link to="/register">Register as a new user</Link>
                 </div>
