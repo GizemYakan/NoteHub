@@ -28,7 +28,7 @@ function Login() {
     const handleSubmit = function (e) {
         setErrors([]);
         e.preventDefault();
-        axios.post("https://localhost:5001/api/Account/Login", {
+        axios.post(process.env.REACT_APP_API + "/api/Account/Login", {
             username: email,
             password: password
         })
@@ -45,11 +45,16 @@ function Login() {
                     localStorage.removeItem("username");
                     localStorage.removeItem("token");
                 }
+                context.setUsername(email);
                 context.setToken(response.data.token);
                 context.setIsLoggedIn(true);
                 history.push("/");
             })
             .catch(function (error) {
+                if (!error.response ){
+                    setErrors(["Cannot connect to server.Please try again later."]);
+                    return;
+                }
                 if (error.response.data && error.response.data.errors) {
                     const messages = [];
                     for (const key in error.response.data.errors) {
