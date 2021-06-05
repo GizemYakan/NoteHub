@@ -122,7 +122,9 @@ function Home() {
                         </ListGroup>
                     </Col>
                     <Col className="h-100" sm={8} md={9}>
-                        <Form className="py-3 h-100 d-flex flex-column">
+                        {
+                            note.id == 0 ? <Form></Form> : 
+                             <Form className="py-3 h-100 d-flex flex-column">
                             <Form.Group>
                                 <Form.Control type="text" placeholder="Title" value={note.title} onChange={(e) => setNote({ ...note, title: e.target.value })} />
                             </Form.Group>
@@ -135,6 +137,7 @@ function Home() {
                                 <Button variant="danger" className="ml-2" onClick={handleDeleteClick}>Delete</Button>
                             </div>
                         </Form>
+                        }
                     </Col>
                 </Row>
             </Container>
