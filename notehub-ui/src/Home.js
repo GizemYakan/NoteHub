@@ -10,7 +10,8 @@ function Home() {
     const apiroot = process.env.REACT_APP_API;
     const token = context.token;
     const [notes, setNotes] = useState([]);
-    const [note, setNote] = useState({ id: 0, title: "", content: "", createdTime: "", modifiedTime: "" });
+    const emptyNote = { id: 0, title: "", content: "", createdTime: "", modifiedTime: "" };
+    const [note, setNote] = useState({ ...emptyNote });
 
     const loadNotes = function () {
         axios.get(apiroot + "/api/Notes", { headers: { Authorization: "Bearer " + token } })
@@ -49,6 +50,19 @@ function Home() {
             });
     }
 
+    const deleteNote = function () {
+        axios.delete(apiroot + "/api/Notes/" + note.id, { headers: { Authorization: "Bearer " + token } })
+            .then(function (response) {
+                const newNotes = notes.filter((x) => x.id != note.id);
+                setNotes(newNotes);
+                setNote({ ...emptyNote });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+
     const handleNewNoteClick = function (e) {
         e.preventDefault();
         addNewNote();
@@ -62,6 +76,11 @@ function Home() {
     const handleSaveClick = function (e) {
         e.preventDefault();
         saveNote();
+    }
+
+    const handleDeleteClick = function (e) {
+        e.preventDefault();
+        deleteNote();
     }
 
     useEffect(() => {
@@ -92,9 +111,9 @@ function Home() {
                                 <i className="fas fa-plus"></i>
                             </Button>
                         </h3>
-                        <ListGroup defaultActiveKey="#notes-0">
+                        <ListGroup activeKey={"#notes-" + note.id}>
                             {notes.map((note, index) =>
-                                <ListGroup.Item action href={"#notes-" + index}
+                                <ListGroup.Item action href={"#notes-" + note.id}
                                     key={note.id}
                                     onClick={(e) => handleTitleClick(e, note)}>
                                     {note.title}
@@ -113,8 +132,7 @@ function Home() {
                             </Form.Group>
                             <div>
                                 <Button variant="primary" onClick={handleSaveClick}>Save</Button>
-                                <Button variant="danger" className="ml-2">Delete</Button>
-                                <p>{note.id} {note.title} {note.content}</p>
+                                <Button variant="danger" className="ml-2" onClick={handleDeleteClick}>Delete</Button>
                             </div>
                         </Form>
                     </Col>
